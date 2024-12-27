@@ -3,11 +3,11 @@ DerivedDataCache
 Intermediate
 Saved
 Build
-Content
 
 
 .vscode
 .vs
+.idea
 *.VC.db
 *.opensdf
 *.opendb
