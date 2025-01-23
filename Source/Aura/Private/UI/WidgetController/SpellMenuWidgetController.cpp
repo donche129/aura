@@ -23,7 +23,10 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 			bool bEnableSpendPointsButton = false;
 			bool bEnableEquipButton = false;
 			ShouldEnableButtons(AbilityStatusTag, CurrentSpellPoints, bEnableSpendPointsButton, bEnableEquipButton);
-			SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton);
+			FString Description;
+			FString NextLevelDescription;
+			GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
+			SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton, Description, NextLevelDescription);
 		}
 		
 		if (AbilityInfo)
@@ -42,7 +45,10 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 		bool bEnableSpendPointsButton = false;
 		bool bEnableEquipButton = false;
 		ShouldEnableButtons(SelectedAbility.AbilityStatusTag, CurrentSpellPoints, bEnableSpendPointsButton, bEnableEquipButton);
-		SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton);
+		FString Description;
+		FString NextLevelDescription;
+		GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(SelectedAbility.AbilityTag, Description, NextLevelDescription);
+		SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton, Description, NextLevelDescription);
 	});
 }
 
@@ -70,7 +76,10 @@ void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityT
 	bool bEnableSpendPointsButton = false;
 	bool bEnableEquipButton = false;
 	ShouldEnableButtons(AbilityStatusTag, SpellPoints, bEnableSpendPointsButton, bEnableEquipButton);
-	SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton);
+	FString Description;
+	FString NextLevelDescription;
+	GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
+	SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton, Description, NextLevelDescription);
 }
 
 void USpellMenuWidgetController::SpendPointButtonPressed()
