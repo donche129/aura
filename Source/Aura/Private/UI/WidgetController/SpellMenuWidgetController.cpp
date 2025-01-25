@@ -90,6 +90,14 @@ void USpellMenuWidgetController::SpendPointButtonPressed()
 	}
 }
 
+void USpellMenuWidgetController::GlobeDeselect()
+{
+	SelectedAbility.AbilityTag = FAuraGameplayTags::Get().Abilities_None;
+	SelectedAbility.AbilityStatusTag = FAuraGameplayTags::Get().Abilities_Status_Locked;
+
+	SpellGlobeSelectedDelegate.Broadcast(false, false, FString(), FString());
+}
+
 void USpellMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatusTag, int32 SpellPoints, bool& bShouldEnableSpendPointsButton, bool& bShouldEnableEquipButton)
 {
 	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
