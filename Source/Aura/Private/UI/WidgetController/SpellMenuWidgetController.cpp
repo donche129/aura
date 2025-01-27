@@ -25,7 +25,7 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 			ShouldEnableButtons(AbilityStatusTag, CurrentSpellPoints, bEnableSpendPointsButton, bEnableEquipButton);
 			FString Description;
 			FString NextLevelDescription;
-			GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
+			GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityInfo, AbilityTag, Description, NextLevelDescription);
 			SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton, Description, NextLevelDescription);
 		}
 		
@@ -49,7 +49,7 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 		ShouldEnableButtons(SelectedAbility.AbilityStatusTag, CurrentSpellPoints, bEnableSpendPointsButton, bEnableEquipButton);
 		FString Description;
 		FString NextLevelDescription;
-		GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(SelectedAbility.AbilityTag, Description, NextLevelDescription);
+		GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityInfo, SelectedAbility.AbilityTag, Description, NextLevelDescription);
 		SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton, Description, NextLevelDescription);
 	});
 }
@@ -87,7 +87,7 @@ void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityT
 	ShouldEnableButtons(AbilityStatusTag, SpellPoints, bEnableSpendPointsButton, bEnableEquipButton);
 	FString Description;
 	FString NextLevelDescription;
-	GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
+	GetAuraAbilitySystemComponent()->GetDescriptionsByAbilityTag(AbilityInfo, AbilityTag, Description, NextLevelDescription);
 	SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPointsButton, bEnableEquipButton, Description, NextLevelDescription);
 }
 
@@ -120,7 +120,11 @@ void USpellMenuWidgetController::EquipButtonPressed()
 
 	WaitForEquipSelectionDelegate.Broadcast(AbilityTypeTag);
 	bWaitingForEquipSelection = true;
-
+	
+	/**
+	 * The SelectedSlotTag is not actually being used in the current implementation.
+	 * See https://www.udemy.com/course/unreal-engine-5-gas-top-down-rpg/learn/lecture/39869226#questions/22569649
+	 */
 	const FGameplayTag SelectedStatusTag = GetAuraAbilitySystemComponent()->GetStatusFromAbilityTag(SelectedAbility.AbilityTag);
 	if (SelectedStatusTag.MatchesTagExact(FAuraGameplayTags::Get().Abilities_Status_Equipped))
 	{
