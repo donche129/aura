@@ -229,16 +229,16 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("Debuff Damage")
 	);
 
-	GameplayTags.Debuff_Frequency = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Debuff.Frequency"),
-		FString("Debuff Frequency")
-	);
-
 	GameplayTags.Debuff_Duration = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Debuff.Duration"),
 		FString("Debuff Duration")
 	);
 
+	GameplayTags.Debuff_Frequency = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Frequency"),
+		FString("Debuff Frequency")
+	);
+	
 	/*
 	 * Map of Damage Types to Resistances
 	 */
